@@ -1,4 +1,14 @@
-# Logs
+# Dependencies
+node_modules
+.pnpm-store
+
+# Build & Output Directories
+dist
+dist-ssr
+build
+*.tsbuildinfo
+
+# Logs & Debugging
 logs
 *.log
 npm-debug.log*
@@ -7,18 +17,37 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
+# Environment Variables & Local Overrides
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 *.local
 
-# Editor directories and files
+# Editor & IDE Directories
 .vscode/*
 !.vscode/extensions.json
 .idea
-.DS_Store
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+.DS_Store
+Thumbs.db
+
+# Python & ML Model Cache
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+*.pt
+*.onnx
+*.weights
+
+# Temporary Files
+tmp/
+temp/

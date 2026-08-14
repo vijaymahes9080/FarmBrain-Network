@@ -150,9 +150,11 @@ Instead of displaying raw monitoring values, **FarmBrain Network** converts raw 
 
 ---
 
-## 👤 Developer Info
+## 👤 Developer Info & License
 
 - **Developer:** Vijay Mahes
 - **Email:** Vijaypradhap2004@gmail.com
 - **Repository:** [GitHub — vijaymahes9080/FarmBrain-Network](https://github.com/vijaymahes9080/FarmBrain-Network.git)
 - **Project:** MCA Final Year Project — FarmBrain Network Decision Intelligence System
+- **License:** Distributed under the [MIT License](LICENSE).
+
