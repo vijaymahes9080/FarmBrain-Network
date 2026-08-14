@@ -1,6 +1,9 @@
 import React from 'react';
 import DecisionEngineCard from '../components/DecisionEngineCard';
 import PipelineDiagram from '../components/PipelineDiagram';
+import VoiceAssistant from '../components/VoiceAssistant';
+import DroneFlightSim from '../components/DroneFlightSim';
+import CarbonCreditTracker from '../components/CarbonCreditTracker';
 import { 
   Sprout, 
   Bug, 
@@ -26,6 +29,9 @@ import {
 export default function Dashboard({ zones, sensorData, setActiveTab }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      {/* Voice Assistant AI Header */}
+      <VoiceAssistant />
+
       {/* 1. Closed-Loop Pipeline Architecture Banner */}
       <PipelineDiagram />
 
@@ -235,6 +241,12 @@ export default function Dashboard({ zones, sensorData, setActiveTab }) {
             <strong style={{ color: '#FFF' }}>23.7 Acres</strong>
           </div>
         </div>
+      </div>
+
+      {/* 5. Autonomous Drone Telemetry & Carbon Monetization Row */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+        <DroneFlightSim />
+        <CarbonCreditTracker />
       </div>
     </div>
   );

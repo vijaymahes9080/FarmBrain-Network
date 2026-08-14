@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import SolarIrrigationCalc from '../components/SolarIrrigationCalc';
 import { 
   Droplets, 
   Zap, 
@@ -183,6 +184,9 @@ export default function IrrigationAI() {
           </ResponsiveContainer>
         </div>
       </div>
+
+      {/* Solar Energy & Pump Sizing Calculator */}
+      <SolarIrrigationCalc />
     </div>
   );
 }
