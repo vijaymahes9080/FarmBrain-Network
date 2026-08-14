@@ -1,0 +1,12 @@
+{
+    "name": "vijaymahes/farmbrain-network",
+    "description": "FarmBrain Network — Complete AI + IoT + Satellite + Decision Intelligence System",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Vijay Mahes",
+            "email": "Vijaypradhap2004@gmail.com"
+        }
+    ],
+    "require": {}
+}
