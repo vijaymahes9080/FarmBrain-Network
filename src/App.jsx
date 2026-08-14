@@ -1,122 +1,84 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import React, { useState } from 'react';
+import Sidebar, { NAV_ITEMS } from './components/Sidebar';
+import TopBar from './components/TopBar';
 
-function App() {
-  const [count, setCount] = useState(0)
+import Dashboard from './pages/Dashboard';
+import DigitalTwin from './pages/DigitalTwin';
+import CropIntelligence from './pages/CropIntelligence';
+import DiseaseAI from './pages/DiseaseAI';
+import WeatherAI from './pages/WeatherAI';
+import IrrigationAI from './pages/IrrigationAI';
+import PestAI from './pages/PestAI';
+import MarketAI from './pages/MarketAI';
+import IoTMonitor from './pages/IoTMonitor';
+
+import { INITIAL_FARM_ZONES, SENSOR_TELEMETRY_SERIES } from './data/farmData';
+
+export default function App() {
+  const [activeTab, setActiveTab] = useState('dashboard');
+  const [zones, setZones] = useState(INITIAL_FARM_ZONES);
+  const [sensorData, setSensorData] = useState(SENSOR_TELEMETRY_SERIES);
+
+  // Simulation handler to simulate live sensor telemetry shifts
+  const handleSimulateTrigger = () => {
+    setSensorData(prev => prev.map(item => ({
+      ...item,
+      moisture: Math.max(15, Math.min(80, item.moisture + Math.floor(Math.random() * 7) - 3)),
+      temp: Math.max(20, Math.min(42, item.temp + Math.floor(Math.random() * 3) - 1))
+    })));
+
+    setZones(prev => prev.map(z => ({
+      ...z,
+      moisture: Math.max(18, Math.min(85, z.moisture + Math.floor(Math.random() * 5) - 2))
+    })));
+  };
+
+  const currentNav = NAV_ITEMS.find(item => item.id === activeTab);
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <div style={{ display: 'flex', minHeight: '100vh', backgroundColor: '#070A12' }}>
+      {/* Sidebar */}
+      <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
 
-      <div className="ticks"></div>
+      {/* Main Content Area */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0 }}>
+        {/* Top Navigation Bar */}
+        <TopBar 
+          activeTabTitle={currentNav ? currentNav.label : 'FarmBrain Hub'} 
+          onSimulateTrigger={handleSimulateTrigger}
+        />
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+        {/* View Switcher */}
+        <main style={{ padding: '32px', flex: 1 }}>
+          {activeTab === 'dashboard' && (
+            <Dashboard zones={zones} sensorData={sensorData} setActiveTab={setActiveTab} />
+          )}
+          {activeTab === 'digital-twin' && (
+            <DigitalTwin zones={zones} />
+          )}
+          {activeTab === 'crop-ai' && (
+            <CropIntelligence zones={zones} />
+          )}
+          {activeTab === 'disease-ai' && (
+            <DiseaseAI />
+          )}
+          {activeTab === 'weather-ai' && (
+            <WeatherAI />
+          )}
+          {activeTab === 'irrigation-ai' && (
+            <IrrigationAI />
+          )}
+          {activeTab === 'pest-ai' && (
+            <PestAI zones={zones} />
+          )}
+          {activeTab === 'market-ai' && (
+            <MarketAI />
+          )}
+          {activeTab === 'iot-monitor' && (
+            <IoTMonitor sensorData={sensorData} />
+          )}
+        </main>
+      </div>
+    </div>
+  );
 }
-
-export default App
